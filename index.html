@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Otogearbox</title>
+<meta name="description" content="Otogearbox — Nigeria's largest automatic gearbox soft parts dealer. Seven branches across Nigeria.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #13175e;
+    --navy-2: #1d2380;
+    --ink: #0f1222;
+    --text: #2a2e45;
+    --muted: #63677e;
+    --bg: #ffffff;
+    --bg-alt: #f3f4f9;
+    --line: #e2e4ee;
+    --yellow: #ffd21f;
+    --red: #d7262b;
+    --sky: #8fd3f4;
+    --card: #ffffff;
+    --radius: 14px;
+    --max: 1180px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #f2f3fa; --text: #d4d6e4; --muted: #9a9db3;
+      --bg: #0c0e1c; --bg-alt: #13162a; --line: #262a45; --card: #161a31;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #f2f3fa; --text: #d4d6e4; --muted: #9a9db3;
+    --bg: #0c0e1c; --bg-alt: #13162a; --line: #262a45; --card: #161a31;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: Archivo, Inter, sans-serif; color: var(--ink); line-height: 1.1; margin: 0; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  /* Prototype ribbon */
+  .proto { background: var(--yellow); color: #1a1a1a; font-size: 13px; text-align: center; padding: 6px 16px; font-weight: 600; }
+
+  /* Header */
+  header.top {
+    position: sticky; top: 0; z-index: 20; background: var(--navy); color: #fff;
+    box-shadow: 0 2px 0 var(--red);
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand-name { font-family: Archivo; font-weight: 900; font-size: 22px; letter-spacing: .5px; }
+  .brand-name span { color: var(--yellow); }
+  nav.links { display: none; gap: 28px; font-size: 15px; font-weight: 500; }
+  nav.links a { text-decoration: none; opacity: .85; }
+  nav.links a:hover { opacity: 1; color: var(--yellow); }
+  @media (min-width: 900px) { nav.links { display: flex; } }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+    padding: 12px 20px; border-radius: 10px; font-weight: 600; font-size: 15px;
+    text-decoration: none; border: 0; cursor: pointer; white-space: nowrap; font-family: inherit;
+  }
+  .btn-yellow { background: var(--yellow); color: #14162e; }
+  .btn-yellow:hover { filter: brightness(1.05); }
+  .btn-ghost { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+  .btn-ghost:hover { background: rgba(255,255,255,.18); }
+  .btn-wa { background: #1fa855; color: #fff; }
+  .btn-sm { padding: 9px 14px; font-size: 14px; }
+  .top .btn { display: none; }
+  .call-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px; background: var(--yellow); color: #14162e; }
+  @media (min-width: 560px) { .top .btn { display: inline-flex; } .call-icon { display: none; } }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(143,211,244,.25), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, #0b0e3d 100%);
+    color: #fff; position: relative; overflow: hidden;
+  }
+  .hero .wrap { display: grid; gap: 40px; padding-top: 64px; padding-bottom: 72px; }
+  @media (min-width: 960px) { .hero .wrap { grid-template-columns: 1.15fr .85fr; align-items: center; padding-top: 96px; padding-bottom: 104px; } }
+  .eyebrow {
+    display: inline-block; background: var(--red); color: #fff; font-weight: 700; font-size: 12px;
+    letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 12px; border-radius: 4px;
+  }
+  .hero h1 { color: #fff; font-size: clamp(36px, 6vw, 62px); font-weight: 900; margin: 20px 0 18px; letter-spacing: -.5px; }
+  .hero h1 em { font-style: normal; color: var(--yellow); }
+  .hero p.lead { font-size: 18px; color: #cdd0ee; max-width: 560px; margin: 0 0 30px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 44px; max-width: 520px; }
+  .stat { border-left: 3px solid var(--yellow); padding-left: 12px; }
+  .stat b { display: block; font-family: Archivo; font-size: 30px; color: #fff; font-weight: 800; }
+  .stat span { font-size: 13px; color: #aeb2d8; }
+
+  .hero-art { position: relative; justify-self: center; width: 100%; max-width: 220px; }
+  @media (min-width: 960px) { .hero-art { max-width: 420px; } }
+  .hero-art svg { width: 100%; height: auto; display: block; }
+
+  /* Sections */
+  section { padding: 80px 0; }
+  .alt { background: var(--bg-alt); }
+  .sec-head { max-width: 680px; margin-bottom: 44px; }
+  .sec-head .kicker { color: var(--red); font-weight: 700; font-size: 13px; letter-spacing: 1.4px; text-transform: uppercase; }
+  .sec-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; margin: 10px 0 12px; }
+  .sec-head p { color: var(--muted); margin: 0; font-size: 17px; }
+
+  /* Products */
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 960px) { .grid.four { grid-template-columns: repeat(4, 1fr); } .grid.three { grid-template-columns: repeat(3, 1fr); } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 24px; transition: transform .15s ease, box-shadow .15s ease, border-color .15s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(19,23,94,.10); border-color: transparent; }
+  .icon {
+    width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--navy); color: var(--yellow); margin-bottom: 16px;
+  }
+  .icon svg { width: 26px; height: 26px; }
+  .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Why */
+  .why { display: grid; gap: 40px; }
+  @media (min-width: 960px) { .why { grid-template-columns: 1fr 1fr; align-items: center; } }
+  .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; }
+  .checks li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
+  .checks .tick { width: 28px; height: 28px; border-radius: 50%; background: var(--yellow); color: var(--navy); display: grid; place-items: center; font-weight: 900; }
+  .checks b { color: var(--ink); display: block; font-family: Archivo; font-size: 17px; }
+  .checks span { color: var(--muted); font-size: 15px; }
+  .feature-panel {
+    background: var(--navy); color: #fff; border-radius: 20px; padding: 32px; position: relative; overflow: hidden;
+  }
+  .feature-panel h3 { color: #fff; font-size: 24px; margin-bottom: 10px; }
+  .feature-panel p { color: #cdd0ee; margin: 0 0 22px; }
+  .feature-panel::after {
+    content: ""; position: absolute; right: -60px; bottom: -60px; width: 200px; height: 200px;
+    border: 26px dashed rgba(255,210,31,.18); border-radius: 50%;
+  }
+
+  /* Branches */
+  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .chip {
+    border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px;
+    padding: 8px 16px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;
+  }
+  .chip[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .branch { display: flex; flex-direction: column; gap: 14px; }
+  .branch-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .branch h3 { font-size: 20px; font-weight: 800; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--red); color: #fff; padding: 4px 8px; border-radius: 4px; }
+  .branch .addr { color: var(--muted); font-size: 15px; display: grid; grid-template-columns: 18px 1fr; gap: 8px; flex: 1; }
+  .branch .addr svg { margin-top: 3px; color: var(--red); }
+  .branch .phone { font-family: Archivo; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: .5px; }
+  .branch-actions { display: flex; gap: 8px; }
+  .branch-actions .btn { flex: 1; }
+  .btn-outline { border: 1px solid var(--line); color: var(--ink); background: transparent; }
+  .btn-outline:hover { border-color: var(--navy); }
+  .btn-navy { background: var(--navy); color: #fff; }
+  :root[data-theme="dark"] .btn-navy { background: var(--navy-2); }
+
+  /* People */
+  .people { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .people { grid-template-columns: 1fr 1fr; } }
+  .person { display: flex; gap: 18px; align-items: center; }
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--navy), var(--navy-2)); color: var(--yellow);
+    font-family: Archivo; font-weight: 800; font-size: 22px;
+  }
+  .person .role { color: var(--red); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+  .person h3 { font-size: 20px; margin: 2px 0 6px; }
+  .person a.num { color: var(--ink); font-weight: 600; text-decoration: none; }
+  .person small { color: var(--muted); }
+
+  /* Request form */
+  .request { display: grid; gap: 32px; }
+  @media (min-width: 960px) { .request { grid-template-columns: .9fr 1.1fr; align-items: start; } }
+  form.req { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; gap: 16px; }
+  @media (min-width: 560px) { form.req { padding: 32px; grid-template-columns: 1fr 1fr; } form.req .full { grid-column: 1 / -1; } }
+  label { font-size: 14px; font-weight: 600; color: var(--ink); display: grid; gap: 6px; }
+  input, select, textarea {
+    font: inherit; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 12px 14px; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--navy-2); outline-offset: 1px; border-color: transparent; }
+  textarea { min-height: 96px; resize: vertical; }
+  .hint { font-size: 13px; color: var(--muted); }
+
+  /* Footer */
+  footer { background: #0a0c2e; color: #b4b7d6; padding: 56px 0 28px; font-size: 15px; }
+  .foot { display: grid; gap: 32px; }
+  @media (min-width: 860px) { .foot { grid-template-columns: 1.4fr 1fr 1fr; } }
+  footer h4 { color: #fff; font-family: Archivo; margin: 0 0 12px; font-size: 16px; }
+  footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--yellow); }
+  .legal { padding-right: 64px; border-top: 1px solid rgba(255,255,255,.1); margin-top: 40px; padding-top: 20px; font-size: 13px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+
+  /* Floating WhatsApp */
+  .fab {
+    position: fixed; right: 16px; bottom: 16px; z-index: 30; width: 56px; height: 56px; border-radius: 50%;
+    background: #1fa855; color: #fff; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  }
+  .fab svg { width: 30px; height: 30px; }
+</style>
+</head>
+<body>
+
+<div class="proto">Prototype for review — layout, wording and details to be confirmed with Otogearbox</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Otogearbox home">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#ffd21f"/>
+        <g transform="translate(20 20)" fill="#13175e">
+          <circle r="8"/>
+          <g id="teeth">
+            <rect x="-2" y="-11" width="4" height="5" rx="1"/>
+            <rect x="-2" y="6" width="4" height="5" rx="1"/>
+            <rect x="-11" y="-2" width="5" height="4" rx="1"/>
+            <rect x="6" y="-2" width="5" height="4" rx="1"/>
+          </g>
+          <use href="#teeth" transform="rotate(45)"/>
+          <circle r="3" fill="#ffd21f"/>
+        </g>
+      </svg>
+      <span class="brand-name">OTO<span>GEARBOX</span></span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#products">Products</a>
+      <a href="#why">Why us</a>
+      <a href="#branches">Branches</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-yellow btn-sm" href="tel:+2348035382603">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+      0803 538 2603
+    </a>
+    <a class="call-icon" href="tel:+2348035382603" aria-label="Call Lagos head office">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Nigeria's largest automatic gearbox soft parts dealer</span>
+        <h1>Every part your <em>automatic gearbox</em> needs.</h1>
+        <p class="lead">Transmissions, torque converters, overhaul kits, clutches, filters and CVT parts, in stock at seven branches across Nigeria, from Ladipo to Kano.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-yellow" href="#request">Request a part</a>
+          <a class="btn btn-ghost" href="#branches">Find a branch near you</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>7</b><span>Branches nationwide</span></div>
+          <div class="stat"><b>8+</b><span>Part categories</span></div>
+          <div class="stat"><b>CVT</b><span>&amp; automatic specialists</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <g id="gearL">
+              <circle r="92" fill="none" stroke="#ffd21f" stroke-width="22"/>
+              <g fill="#ffd21f">
+                <rect x="-12" y="-122" width="24" height="34" rx="4"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(30)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(60)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(90)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(120)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(150)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(180)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(210)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(240)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(270)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(300)"/>
+                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(330)"/>
+              </g>
+              <circle r="34" fill="none" stroke="#ffd21f" stroke-width="14"/>
+              <g stroke="#ffd21f" stroke-width="10"><line x1="0" y1="-40" x2="0" y2="-84"/><line x1="0" y1="40" x2="0" y2="84"/><line x1="-40" y1="0" x2="-84" y2="0"/><line x1="40" y1="0" x2="84" y2="0"/></g>
+            </g>
+          </defs>
+          <circle cx="200" cy="200" r="190" fill="rgba(255,255,255,.04)"/>
+          <g transform="translate(170 180)">
+            <use href="#gearL">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="40s" repeatCount="indefinite"/>
+            </use>
+          </g>
+          <g transform="translate(318 318) scale(.5)">
+            <g>
+              <use href="#gearL" style="opacity:.9"/>
+              <animateTransform attributeName="transform" type="rotate" from="15" to="-345" dur="20s" repeatCount="indefinite"/>
+            </g>
+          </g>
+          <circle cx="170" cy="180" r="10" fill="#d7262b"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">What we sell</div>
+        <h2>Automatic transmission parts, all in one place</h2>
+        <p>From complete units to the small soft parts that keep a gearbox shifting smoothly. Ask any branch for availability on your vehicle.</p>
+      </div>
+      <div class="grid four">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 6v12M12 6v12M17 6v12"/></svg></div>
+          <h3>Automatic Transmissions</h3>
+          <p>Complete gearbox units for a wide range of makes and models.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/></svg></div>
+          <h3>Torque Converters</h3>
+          <p>Replacement converters to restore power delivery and smooth take-off.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg></div>
+          <h3>Transmission Filters</h3>
+          <p>Keep fluid clean and protect valve bodies and clutches.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="5" stroke-dasharray="2 2"/></svg></div>
+          <h3>Overhaul Kits, Fibre &amp; Clutches</h3>
+          <p>Full rebuild kits, friction plates and clutch packs.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M9 6h6l-1 4h-4zM10 10h4v8l-2 4-2-4z"/></svg></div>
+          <h3>Spark Plugs</h3>
+          <p>Quality plugs for reliable ignition and fuel efficiency.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/></svg></div>
+          <h3>Oil Filters</h3>
+          <p>Engine oil filters to go with every service.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="10" height="18" rx="2"/><path d="M15 8h2a2 2 0 0 1 2 2v6a2 2 0 0 0 2 2"/><path d="M8 7h4"/></svg></div>
+          <h3>Fuel Filters</h3>
+          <p>Fuel filters and related service items.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="12" r="4"/><circle cx="17" cy="12" r="4"/><path d="M7 8l10 0M7 16h10"/></svg></div>
+          <h3>CVT Transmission Parts</h3>
+          <p>Belts, pulleys and soft parts for continuously variable transmissions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="alt">
+    <div class="wrap why">
+      <div>
+        <div class="sec-head" style="margin-bottom:28px">
+          <div class="kicker">Why Otogearbox</div>
+          <h2>The gearbox specialists mechanics trust</h2>
+        </div>
+        <ul class="checks">
+          <li><span class="tick">✓</span><div><b>Specialists, not generalists</b><span>Automatic and CVT gearbox parts are our focus, so we know what fits.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Nationwide reach</b><span>Branches in Lagos, Abuja, Ibadan, Onitsha, Port Harcourt, Kaduna and Kano.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Soft parts to full units</b><span>One stop for a small seal or a complete replacement transmission.</span></div></li>
+          <li><span class="tick">✓</span><div><b>Talk to a real person</b><span>Call any branch directly or message us on WhatsApp.</span></div></li>
+        </ul>
+      </div>
+      <div class="feature-panel">
+        <h3>Not sure which part you need?</h3>
+        <p>Send us your vehicle make, model and year, plus a photo of the part if you have one. We'll tell you what fits and which branch has it.</p>
+        <a class="btn btn-wa" href="https://wa.me/19087647494" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section id="branches">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Our branches across Nigeria</div>
+        <h2>Seven branches, one phone call away</h2>
+        <p>Walk in, call ahead, or get directions to the branch closest to you.</p>
+      </div>
+      <div class="filter" role="group" aria-label="Filter branches by region">
+        <button class="chip" aria-pressed="true" data-region="all">All</button>
+        <button class="chip" aria-pressed="false" data-region="sw">South West</button>
+        <button class="chip" aria-pressed="false" data-region="se">South East / South South</button>
+        <button class="chip" aria-pressed="false" data-region="n">North</button>
+      </div>
+      <div class="grid three" id="branchGrid"></div>
+    </div>
+  </section>
+
+  <!-- PEOPLE -->
+  <section id="contact" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Management</div>
+        <h2>Speak with our team</h2>
+      </div>
+      <div class="people">
+        <div class="card person">
+          <div class="avatar">EO</div>
+          <div>
+            <div class="role">Director</div>
+            <h3>Emmanuel Otoigiakhi</h3>
+            <a class="num" href="https://wa.me/19087647494" target="_blank" rel="noopener">+1 908-764-7494</a><br>
+            <small>WhatsApp only</small>
+          </div>
+        </div>
+        <div class="card person">
+          <div class="avatar">SO</div>
+          <div>
+            <div class="role">General Manager</div>
+            <h3>Shittu Opeyemi</h3>
+            <a class="num" href="tel:+2348022945319">0802 294 5319</a><br>
+            <small>Calls &amp; enquiries</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REQUEST -->
+  <section id="request">
+    <div class="wrap request">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="kicker">Request a part</div>
+        <h2>Tell us what you need</h2>
+        <p>Fill this in and it opens WhatsApp with your request ready to send. No account or sign-up needed.</p>
+      </div>
+      <form class="req" id="reqForm">
+        <label>Your name<input name="name" required autocomplete="name"></label>
+        <label>Nearest branch
+          <select name="branch" id="branchSelect"></select>
+        </label>
+        <label>Vehicle make &amp; model<input name="vehicle" placeholder="e.g. Toyota Camry" required></label>
+        <label>Year<input name="year" inputmode="numeric" placeholder="e.g. 2012"></label>
+        <label class="full">Part needed
+          <select name="part">
+            <option>Automatic transmission</option>
+            <option>Torque converter</option>
+            <option>Transmission filter</option>
+            <option>Overhaul kit / fibre / clutches</option>
+            <option>Spark plugs</option>
+            <option>Oil filter</option>
+            <option>Fuel filter</option>
+            <option>CVT transmission parts</option>
+            <option>Other / not sure</option>
+          </select>
+        </label>
+        <label class="full">Details<textarea name="details" placeholder="Symptoms, part number, or anything else that helps"></textarea></label>
+        <div class="full" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+          <span class="hint">Opens WhatsApp in a new tab.</span>
+          <button class="btn btn-wa" type="submit">Send via WhatsApp</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand-name" style="color:#fff;margin-bottom:10px">OTO<span style="color:var(--yellow)">GEARBOX</span></div>
+        <p style="margin:0 0 6px">Nigeria's largest automatic gearbox soft parts dealer.</p>
+        <p style="margin:0">Head office: Shop 79, Block G75-76, Tudas International (Bakkasi) Market, Ladipo, Lagos.</p>
+      </div>
+      <div>
+        <h4>Branches</h4>
+        <ul id="footBranches"></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+2348035382603">Lagos: 0803 538 2603</a></li>
+          <li><a href="tel:+2348022945319">GM: 0802 294 5319</a></li>
+          <li><a href="https://wa.me/19087647494" target="_blank" rel="noopener">WhatsApp: +1 908-764-7494</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© <span id="yr"></span> Otogearbox. All rights reserved.</span>
+      <span>Ladipo · Abuja · Ibadan · Onitsha · Port Harcourt · Kaduna · Kano</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/19087647494" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+</a>
+
+<script>
+  const branches = [
+    { city: "Lagos", region: "sw", hq: true, phone: "08035382603",
+      addr: "Shop 79, Block G75-76, Tudas International (Bakkasi) Market, Ladipo, Lagos" },
+    { city: "Abuja", region: "n", phone: "08166693204",
+      addr: "Shop 15, Ijele Zuba, behind Motor Spare Part, Abuja" },
+    { city: "Ibadan", region: "sw", phone: "07077766460",
+      addr: "Shop 4, E/201 Ibrahim Complex, opp. NTA Junction, Agodi Gate, Ibadan, Oyo State" },
+    { city: "Onitsha", region: "se", phone: "08151799341",
+      addr: "No. 45 St. P/B, Verdict of God Complex, Owerri Road, Onitsha, Anambra State" },
+    { city: "Port Harcourt", region: "se", phone: "08064746131",
+      addr: "No. 37 Azikiwe Road, Mile 2 Diobu, Port Harcourt" },
+    { city: "Kaduna", region: "n", phone: "08144275417",
+      addr: "5 Lagos Street, by Gwandu Road, Kaduna" },
+    { city: "Kano", region: "n", phone: "07010634394",
+      addr: "No. 90 Niger Road / Ibo Road, Sabon Gari, Kano" },
+  ];
+
+  const intl = p => "+234" + p.slice(1);
+  const pretty = p => p.replace(/(\d{4})(\d{3})(\d{4})/, "$1 $2 $3");
+  const pin = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+
+  const grid = document.getElementById("branchGrid");
+  function render(region) {
+    grid.innerHTML = branches
+      .filter(b => region === "all" || b.region === region)
+      .map(b => `
+        <article class="card branch">
+          <div class="branch-top">
+            <h3>${b.city}</h3>
+            ${b.hq ? '<span class="tag">Head office</span>' : ""}
+          </div>
+          <a class="phone" href="tel:${intl(b.phone)}">${pretty(b.phone)}</a>
+          <div class="addr">${pin}<span>${b.addr}</span></div>
+          <div class="branch-actions">
+            <a class="btn btn-navy btn-sm" href="tel:${intl(b.phone)}">Call</a>
+            <a class="btn btn-outline btn-sm" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.addr)}">Directions</a>
+          </div>
+        </article>`).join("");
+  }
+  render("all");
+
+  document.querySelectorAll(".chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+      chip.setAttribute("aria-pressed", "true");
+      render(chip.dataset.region);
+    });
+  });
+
+  document.getElementById("branchSelect").innerHTML =
+    branches.map(b => `<option>${b.city}</option>`).join("");
+  document.getElementById("footBranches").innerHTML =
+    branches.map(b => `<li><a href="tel:${intl(b.phone)}">${b.city}: ${pretty(b.phone)}</a></li>`).join("");
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  document.getElementById("reqForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const msg = [
+      "Hello Otogearbox, I'd like to request a part.",
+      `Name: ${f.get("name")}`,
+      `Nearest branch: ${f.get("branch")}`,
+      `Vehicle: ${f.get("vehicle")} ${f.get("year") || ""}`.trim(),
+      `Part: ${f.get("part")}`,
+      f.get("details") ? `Details: ${f.get("details")}` : ""
+    ].filter(Boolean).join("\n");
+    window.open("https://wa.me/19087647494?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  });
+</script>
+</body>
+</html>

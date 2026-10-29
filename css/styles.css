@@ -90,31 +90,36 @@ nav.links a:hover { opacity: 1; color: var(--yellow); }
 .stat b { display: block; font-family: Archivo; font-size: 30px; color: #fff; font-weight: 800; }
 .stat span { font-size: 13px; color: #aeb2d8; }
 
-/* Hero parts showcase: the 4 parts from the logo, cross-fading inside a hexagon */
-.showcase { justify-self: center; width: 100%; max-width: 320px; }
-@media (min-width: 960px) { .showcase { max-width: 480px; } }
+/* Hero parts showcase: the 4 parts from the logo, cross-fading over a soft glow */
+.showcase { justify-self: center; width: 100%; max-width: 340px; }
+@media (min-width: 960px) { .showcase { max-width: 520px; } }
 .stage { position: relative; aspect-ratio: 1; }
-.stage::before {
-  content: ""; position: absolute; inset: 8%; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,210,31,.28) 0%, rgba(255,210,31,.08) 45%, transparent 70%);
+.stage::before { /* warm brand glow behind the part */
+  content: ""; position: absolute; inset: 4%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,210,31,.30) 0%, rgba(255,210,31,.10) 40%, transparent 68%);
 }
-.stage .hex { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.stage .hex polygon { fill: none; vector-effect: non-scaling-stroke; }
-.stage .hex .outer { stroke: var(--yellow); stroke-width: 3; opacity: .9; }
-.stage .hex .inner { stroke: var(--red); stroke-width: 2; opacity: .8; }
+.stage::after { /* floor shadow the part floats above */
+  content: ""; position: absolute; left: 22%; right: 22%; bottom: 4%; height: 7%; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 45%, transparent 72%);
+  filter: blur(4px); animation: shadow-breathe 6s ease-in-out infinite;
+}
 .slide {
-  position: absolute; inset: 0; display: grid; place-items: center; margin: 0;
+  position: absolute; inset: 0; display: grid; place-items: center; margin: 0; z-index: 1;
   opacity: 0; transform: scale(.82) rotate(-10deg); filter: blur(8px);
   transition: opacity .9s ease, transform 1.1s cubic-bezier(.2,.8,.2,1), filter .9s ease;
 }
 .slide.is-active { opacity: 1; transform: none; filter: none; }
 .slide.is-leaving { opacity: 0; transform: scale(1.08) rotate(8deg); filter: blur(8px); }
-.slide img {
-  width: 62%; height: auto; max-height: 66%; object-fit: contain;
-  filter: drop-shadow(0 22px 30px rgba(0,0,0,.55));
+.part { /* holds the shadow so it stays put while the image spins */
+  display: grid; place-items: center; width: 80%; height: 80%;
+  filter: drop-shadow(0 28px 22px rgba(0,0,0,.45)) drop-shadow(0 6px 6px rgba(0,0,0,.35));
+  animation: float 6s ease-in-out infinite;
 }
+.part img { width: 100%; height: 100%; object-fit: contain; }
 .slide.is-active img.spin { animation: spin 24s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 50% { transform: translateY(-12px); } }
+@keyframes shadow-breathe { 50% { transform: scaleX(.85); opacity: .7; } }
 .showcase-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .part-name { font-family: Archivo; font-weight: 800; color: #fff; font-size: 18px; min-height: 1.2em; transition: opacity .4s ease; }
 .part-name small { display: block; font-family: Inter; font-weight: 500; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); }
@@ -126,7 +131,7 @@ nav.links a:hover { opacity: 1; color: var(--yellow); }
 .dots button[aria-current="true"] { width: 28px; background: var(--yellow); }
 @media (prefers-reduced-motion: reduce) {
   .slide, .slide.is-leaving { transform: none; filter: none; transition: opacity .4s ease; }
-  .slide.is-active img.spin { animation: none; }
+  .slide.is-active img.spin, .part, .stage::after { animation: none; }
 }
 .brand-logo { height: 44px; width: auto; display: block; }
 .foot-logo { width: 72px; height: auto; display: block; margin-bottom: 14px; }

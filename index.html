@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Otogearbox</title>
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#13175e">
 <meta name="description" content="Otogearbox — Nigeria's largest automatic gearbox soft parts dealer. Seven branches across Nigeria.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +107,11 @@
 
   .hero-art { position: relative; justify-self: center; width: 100%; max-width: 220px; }
   @media (min-width: 960px) { .hero-art { max-width: 420px; } }
-  .hero-art svg { width: 100%; height: auto; display: block; }
+  .hero-art img { width: 100%; height: auto; display: block; filter: drop-shadow(0 18px 36px rgba(0,0,0,.45)); animation: float 6s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) { .hero-art img { animation: none; } }
+  .brand-logo { height: 44px; width: auto; display: block; }
+  .foot-logo { width: 72px; height: auto; display: block; margin-bottom: 14px; }
 
   /* Sections */
   section { padding: 80px 0; }
@@ -222,20 +230,10 @@
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Otogearbox home">
-      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
-        <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#ffd21f"/>
-        <g transform="translate(20 20)" fill="#13175e">
-          <circle r="8"/>
-          <g id="teeth">
-            <rect x="-2" y="-11" width="4" height="5" rx="1"/>
-            <rect x="-2" y="6" width="4" height="5" rx="1"/>
-            <rect x="-11" y="-2" width="5" height="4" rx="1"/>
-            <rect x="6" y="-2" width="5" height="4" rx="1"/>
-          </g>
-          <use href="#teeth" transform="rotate(45)"/>
-          <circle r="3" fill="#ffd21f"/>
-        </g>
-      </svg>
+      <picture>
+        <source srcset="assets/logo-sm.webp" type="image/webp">
+        <img class="brand-logo" src="assets/logo-sm.png" width="160" height="158" alt="">
+      </picture>
       <span class="brand-name">OTO<span>GEARBOX</span></span>
     </a>
     <nav class="links" aria-label="Main">
@@ -272,43 +270,11 @@
           <div class="stat"><b>CVT</b><span>&amp; automatic specialists</span></div>
         </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 400 400">
-          <defs>
-            <g id="gearL">
-              <circle r="92" fill="none" stroke="#ffd21f" stroke-width="22"/>
-              <g fill="#ffd21f">
-                <rect x="-12" y="-122" width="24" height="34" rx="4"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(30)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(60)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(90)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(120)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(150)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(180)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(210)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(240)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(270)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(300)"/>
-                <rect x="-12" y="-122" width="24" height="34" rx="4" transform="rotate(330)"/>
-              </g>
-              <circle r="34" fill="none" stroke="#ffd21f" stroke-width="14"/>
-              <g stroke="#ffd21f" stroke-width="10"><line x1="0" y1="-40" x2="0" y2="-84"/><line x1="0" y1="40" x2="0" y2="84"/><line x1="-40" y1="0" x2="-84" y2="0"/><line x1="40" y1="0" x2="84" y2="0"/></g>
-            </g>
-          </defs>
-          <circle cx="200" cy="200" r="190" fill="rgba(255,255,255,.04)"/>
-          <g transform="translate(170 180)">
-            <use href="#gearL">
-              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="40s" repeatCount="indefinite"/>
-            </use>
-          </g>
-          <g transform="translate(318 318) scale(.5)">
-            <g>
-              <use href="#gearL" style="opacity:.9"/>
-              <animateTransform attributeName="transform" type="rotate" from="15" to="-345" dur="20s" repeatCount="indefinite"/>
-            </g>
-          </g>
-          <circle cx="170" cy="180" r="10" fill="#d7262b"/>
-        </svg>
+      <div class="hero-art">
+        <picture>
+          <source srcset="assets/logo.webp" type="image/webp">
+          <img src="assets/logo.png" width="480" height="475" alt="Otogearbox logo: OTOGEARBOX above a gearbox drum, friction plate, gear and transmission filter">
+        </picture>
       </div>
     </div>
   </section>
@@ -482,6 +448,7 @@
   <div class="wrap">
     <div class="foot">
       <div>
+        <img class="foot-logo" src="assets/logo-sm.webp" width="72" height="71" alt="Otogearbox logo" loading="lazy">
         <div class="brand-name" style="color:#fff;margin-bottom:10px">OTO<span style="color:var(--yellow)">GEARBOX</span></div>
         <p style="margin:0 0 6px">Nigeria's largest automatic gearbox soft parts dealer.</p>
         <p style="margin:0">Head office: Shop 79, Block G75-76, Tudas International (Bakkasi) Market, Ladipo, Lagos.</p>

@@ -108,6 +108,8 @@ nav.links a:hover { opacity: 1; color: var(--yellow); }
   animation: float 6s ease-in-out infinite;
 }
 .part img { width: 100%; height: 100%; object-fit: contain; }
+/* A real product photo (with its backing sheet) rather than a cut-out */
+.part img.photo { width: auto; max-width: 100%; border-radius: 16px; }
 .slide.is-active img.spin { animation: spin 24s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes float { 50% { transform: translateY(-12px); } }

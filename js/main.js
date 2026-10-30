@@ -9,7 +9,7 @@ const branches = [
     addr: "Shop 4, E/201 Ibrahim Complex, opp. NTA Junction, Agodi Gate, Ibadan, Oyo State" },
   { city: "Onitsha", region: "se", phone: "08151799341",
     addr: "No. 45 St. P/B, Verdict of God Complex, Owerri Road, Onitsha, Anambra State" },
-  { city: "Port Harcourt", region: "se", phone: "08064746131",
+  { city: "Port Harcourt", region: "se", phone: "08064746131", photo: "port-harcourt",
     addr: "No. 37 Azikiwe Road, Mile 2 Diobu, Port Harcourt" },
   { city: "Kaduna", region: "n", phone: "08144275417",
     addr: "5 Lagos Street, by Gwandu Road, Kaduna" },
@@ -21,12 +21,19 @@ const intl = p => "+234" + p.slice(1);
 const pretty = p => p.replace(/(\d{4})(\d{3})(\d{4})/, "$1 $2 $3");
 const pin = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
 
+// Shopfront photo, or a placeholder until that branch sends one
+const shopfront = b => b.photo
+  ? `<img class="branch-photo" src="assets/branches/${b.photo}.webp" width="800" height="600"
+       loading="lazy" alt="Otogearbox shopfront in ${b.city}">`
+  : `<div class="branch-photo is-empty"><img src="assets/logo-sm.webp" alt=""><span>Shop photo coming soon</span></div>`;
+
 const grid = document.getElementById("branchGrid");
 function render(region) {
   grid.innerHTML = branches
     .filter(b => region === "all" || b.region === region)
     .map(b => `
       <article class="card branch">
+        ${shopfront(b)}
         <div class="branch-top">
           <h3>${b.city}</h3>
           ${b.hq ? '<span class="tag">Head office</span>' : ""}
@@ -35,7 +42,9 @@ function render(region) {
         <div class="addr">${pin}<span>${b.addr}</span></div>
         <div class="branch-actions">
           <a class="btn btn-navy btn-sm" href="tel:${intl(b.phone)}">Call</a>
-          <a class="btn btn-outline btn-sm" target="_blank" rel="noopener"
+          <a class="btn btn-wa btn-sm" target="_blank" rel="noopener"
+             href="https://wa.me/${intl(b.phone).slice(1)}?text=${encodeURIComponent(`Hello Otogearbox ${b.city}, I'd like to ask about a part.`)}">WhatsApp</a>
+          <a class="btn btn-outline btn-sm btn-dir" target="_blank" rel="noopener"
              href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.addr)}">Directions</a>
         </div>
       </article>`).join("");

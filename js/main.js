@@ -42,7 +42,9 @@ function render(region) {
         <div class="addr">${pin}<span>${b.addr}</span></div>
         <div class="branch-actions">
           <a class="btn btn-navy btn-sm" href="tel:${intl(b.phone)}">Call</a>
-          <a class="btn btn-outline btn-sm" target="_blank" rel="noopener"
+          <a class="btn btn-wa btn-sm" target="_blank" rel="noopener"
+             href="https://wa.me/${intl(b.phone).slice(1)}?text=${encodeURIComponent(`Hello Otogearbox ${b.city}, I'd like to ask about a part.`)}">WhatsApp</a>
+          <a class="btn btn-outline btn-sm btn-dir" target="_blank" rel="noopener"
              href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.addr)}">Directions</a>
         </div>
       </article>`).join("");

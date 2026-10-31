@@ -1,19 +1,19 @@
 // Otogearbox site scripts: branch list, region filter, part request form, hero carousel
 
 const branches = [
-  { city: "Lagos", region: "sw", hq: true, phone: "08035382603",
+  { city: "Lagos", region: "sw", hq: true, phone: "08035382603", photos: ["lagos", "lagos-2"],
     addr: "Shop 79, Block G75-76, Tudas International (Bakkasi) Market, Ladipo, Lagos" },
-  { city: "Abuja", region: "n", phone: "09063342570",
+  { city: "Abuja", region: "n", phone: "09063342570", photos: ["abuja"],
     addr: "Shop 15, Ijele Zuba, behind Motor Spare Part, Abuja" },
-  { city: "Ibadan", region: "sw", phone: "07077766460",
+  { city: "Ibadan", region: "sw", phone: "07077766460", photos: ["ibadan"],
     addr: "Shop 4, E/201 Ibrahim Complex, opp. NTA Junction, Agodi Gate, Ibadan, Oyo State" },
   { city: "Onitsha", region: "se", phone: "08151799341",
     addr: "Block E, Shop 60, Gift Plaza, 108 City Biscuit Road, Ugwuagba, Obosi, Onitsha, Anambra State" },
-  { city: "Port Harcourt", region: "se", phone: "08064746131", photo: "port-harcourt",
+  { city: "Port Harcourt", region: "se", phone: "08064746131", photos: ["port-harcourt"],
     addr: "No. 37 Azikiwe Road, Mile 2 Diobu, Port Harcourt" },
-  { city: "Kaduna", region: "n", phone: "08144275417", photo: "kaduna",
+  { city: "Kaduna", region: "n", phone: "08144275417", photos: ["kaduna"],
     addr: "5 Lagos Street, by Gwandu Road, Kaduna" },
-  { city: "Kano", region: "n", phone: "07010634394", photo: "kano",
+  { city: "Kano", region: "n", phone: "07010634394", photos: ["kano"],
     addr: "No. 90 Niger Road / Ibo Road, Sabon Gari, Kano" },
 ];
 
@@ -21,11 +21,22 @@ const intl = p => "+234" + p.slice(1);
 const pretty = p => p.replace(/(\d{4})(\d{3})(\d{4})/, "$1 $2 $3");
 const pin = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
 
-// Shopfront photo, or a placeholder until that branch sends one
-const shopfront = b => b.photo
-  ? `<img class="branch-photo" src="assets/branches/${b.photo}.webp" width="800" height="600"
-       loading="lazy" alt="Otogearbox shopfront in ${b.city}">`
-  : `<div class="branch-photo is-empty"><img src="assets/logo-sm.webp" alt=""><span>Shop photo coming soon</span></div>`;
+// Shop photos: one image, a swipeable set when a branch has several, or a placeholder until it sends one
+const photoImg = (b, name, n) => `<img src="assets/branches/${name}.webp" width="800" height="600" loading="lazy"
+       alt="${n ? `Otogearbox ${b.city} branch, photo ${n + 1}` : `Otogearbox shopfront in ${b.city}`}">`;
+const shopfront = b => {
+  const photos = b.photos || [];
+  if (!photos.length)
+    return `<div class="branch-photo is-empty"><img src="assets/logo-sm.webp" alt=""><span>Shop photo coming soon</span></div>`;
+  if (photos.length === 1) return `<div class="branch-photo">${photoImg(b, photos[0], 0)}</div>`;
+  return `
+        <div class="branch-photo is-gallery" role="group" aria-label="${b.city} shop photos">
+          <div class="track">${photos.map((p, n) => photoImg(b, p, n)).join("")}</div>
+          <button class="nav prev" type="button" aria-label="Previous photo">&#8249;</button>
+          <button class="nav next" type="button" aria-label="Next photo">&#8250;</button>
+          <span class="count">1 / ${photos.length}</span>
+        </div>`;
+};
 
 const grid = document.getElementById("branchGrid");
 function render(region) {
@@ -50,6 +61,20 @@ function render(region) {
       </article>`).join("");
 }
 render("all");
+
+// Branch photo galleries: arrows scroll by one photo, the counter follows swipes
+grid.addEventListener("click", e => {
+  const nav = e.target.closest(".branch-photo .nav");
+  if (!nav) return;
+  const track = nav.parentElement.querySelector(".track");
+  track.scrollBy({ left: (nav.classList.contains("next") ? 1 : -1) * track.clientWidth, behavior: "smooth" });
+});
+grid.addEventListener("scroll", e => {
+  const track = e.target;
+  if (!track.classList?.contains("track")) return;
+  const n = Math.round(track.scrollLeft / track.clientWidth) + 1;
+  track.parentElement.querySelector(".count").textContent = `${n} / ${track.children.length}`;
+}, true);
 
 document.querySelectorAll(".chip").forEach(chip => {
   chip.addEventListener("click", () => {

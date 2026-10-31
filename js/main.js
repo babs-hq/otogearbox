@@ -11,9 +11,9 @@ const branches = [
     addr: "Block E, Shop 60, Gift Plaza, 108 City Biscuit Road, Ugwuagba, Obosi, Onitsha, Anambra State" },
   { city: "Port Harcourt", region: "se", phone: "08064746131", photo: "port-harcourt",
     addr: "No. 37 Azikiwe Road, Mile 2 Diobu, Port Harcourt" },
-  { city: "Kaduna", region: "n", phone: "08144275417",
+  { city: "Kaduna", region: "n", phone: "08144275417", photo: "kaduna",
     addr: "5 Lagos Street, by Gwandu Road, Kaduna" },
-  { city: "Kano", region: "n", phone: "07010634394",
+  { city: "Kano", region: "n", phone: "07010634394", photo: "kano",
     addr: "No. 90 Niger Road / Ibo Road, Sabon Gari, Kano" },
 ];
 
